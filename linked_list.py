@@ -25,27 +25,23 @@ class linked_list:
         while(mapper.nextval != None):
             print(" "+ mapper.dataval)
             mapper=mapper.nextval
+        
+        print(" "+ mapper.dataval)
+
         return        
 if __name__ == "__main__":
-
-    choice=0
     linked = linked_list()
-    number = input("enter a number to add:")
-    linked.new_node(number)
-
-    while(choice != 3):
-        print("1.add 2.print 3.quit")
-        choice = input("enter a choice")
+    choice=1
+    while(choice!=3):
         if(choice==1):
             number = input("enter a number to add:")
             linked.new_node(number)
-        elif(choice==2):
+        if(choice==2):
             linked.printer()
-        elif(choice==3):
-            print("thanks")
-        else:
-            print("invalid")           
-''' '''
+        print("1.add 2.print 3.exit")
+        choice=int(input("enter a choice:"))  #the int is used because the input takes the vlaue as a character which messes up with if condition            
+
+
 
 
 
