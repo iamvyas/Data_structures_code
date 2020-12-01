@@ -1,5 +1,5 @@
 #working under the code
-
+#this circular linked list works like a queue....most of its applications is used for queueing purpose so chill guys
 
 class Node:
     def __init__(self, data):
@@ -23,41 +23,31 @@ class linked_list:
         self.tail=temp
         return    
 
-    def delete_node(self,index):
-        temp=self.head
-        i=0
-        invalid_flag=0
-        #locate the node
-        if(int(index) == 1):
-            self.head=temp.nextval
-            del temp
-            print("delete succcess" + self.head.dataval)
-            return
-        while(i!=int(index)-2):
-            temp=temp.nextval
-            if(temp.nextval == None):
-                invalid_flag=1
-                break
-            else:
-                i +=1
-        if (invalid_flag==1):
-            print("position out of range")
-            return
-        bag=temp.nextval
-        temp.nextval=bag.nextval
-        del bag
-        print("delete succcess")    
-        return     
+    def delete_node(self):
+        el_to_del = self.head
+        self.head=self.head.nextval
+        self.tail.nextval=self.head
+
+        del el_to_del
+        print("delete success")
+        return
+        
 
     def printer(self):
         mapper=self.head
-        while(mapper.nextval != None):
+        while(mapper.nextval != self.head):
             print(" "+ mapper.dataval)
             mapper=mapper.nextval
         
         print(" "+ mapper.dataval)
 
-        return        
+        return
+
+    def print_headtail(self):
+        print(self.head.dataval) 
+        print(" ")
+        print(self.tail.dataval)
+        return            
 if __name__ == "__main__":
     linked = linked_list()
     choice=1
@@ -67,9 +57,10 @@ if __name__ == "__main__":
             linked.new_node(number)
         if(choice==2):
             linked.printer()
+            print("test")
+            linked.print_headtail()
         if(choice==3):
-            number = input("enter position to be deleted:")
-            linked.delete_node(number)    
+            linked.delete_node()    
         print("1.add 2.print 3.delete 4.exit")
         choice=int(input("enter a choice:"))  #the int is used because the input takes the vlaue as a character which messes up with if condition            
 
