@@ -18,7 +18,31 @@ class linked_list:
         temp.nextval=None
         self.tail.nextval=temp
         self.tail=temp
-        return    
+        return
+
+    def reverse_list(self):
+        temphead=self.head
+        temptail=self.tail
+        midtail=None
+        first_time_flag=0
+        while(temphead!=temptail):
+            if(first_time_flag==0):
+                temp=temphead
+                temphead=temphead.nextval
+                self.tail.nextval=temp
+                temp.nextval=None
+                self.tail=temp
+                midtail=temp
+                first_time_flag=1
+            else:
+                temp=temphead
+                temphead=temphead.nextval
+                temptail.nextval=temp
+                temp.nextval=midtail
+                midtail=temp
+        self.head=temphead        
+
+        return        
 
     def delete_node(self,index):
         temp=self.head
@@ -54,11 +78,15 @@ class linked_list:
         
         print(" "+ mapper.dataval)
 
+        print(self.head.dataval)
+        
+        print(self.tail.dataval)
+
         return        
 if __name__ == "__main__":
     linked = linked_list()
     choice=1
-    while(choice!=4):
+    while(choice!=5):
         if(choice==1):
             number = input("enter a number to add:")
             linked.new_node(number)
@@ -66,8 +94,10 @@ if __name__ == "__main__":
             linked.printer()
         if(choice==3):
             number = input("enter position to be deleted:")
-            linked.delete_node(number)    
-        print("1.add 2.print 3.delete 4.exit")
+            linked.delete_node(number)
+        if(choice==4):
+            linked.reverse_list()           
+        print("1.add 2.print 3.delete 4.reverse 5.exit")
         choice=int(input("enter a choice:"))  #the int is used because the input takes the vlaue as a character which messes up with if condition            
 
 

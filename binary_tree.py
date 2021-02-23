@@ -45,16 +45,36 @@ class linked_list:
                 else:
                     self.temproot=self.root.nextval_right
                     self.passon(temp)        
-            return            
+            return  
 
-    def delete_node(self):
-        el_to_del = self.head
-        self.head=self.head.nextval
-        self.tail.nextval=self.head
+    def delete_node(self,index):
+        el_to_del = self.root
+        if(el_to_del.dataval==index):
+            print("delete the part and join with next highest number")
+            el_to_del.dataval=self.replacer(el_to_del)
 
-        del el_to_del
+        else:
+            if(el_to_del.nextval_right!=None):
+                el_to_del.dataval= self.rec_delete(el_to_del.nextval_right,index)
+            else:
+                el_to_del.dataval= self.rec_delete(el_to_del.nextval_left,index)     
+
         print("delete success")
         return
+
+    def rec_delete(self,del_node,index):
+        el_to_del = del_node
+        if(el_to_del.dataval==index):
+            el_to_del=self.replacer(el_to_del)
+
+        else:
+            if(el_to_del.nextval_right!=None):
+                el_to_del.dataval= self.rec_delete(el_to_del.nextval_right,index)
+            else:
+                el_to_del.dataval= self.rec_delete(el_to_del.nextval_left,index)
+
+        return  el_to_del.dataval   
+        
 
     def print_root(self):
         print(self.root.dataval)
