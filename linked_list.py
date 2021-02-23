@@ -43,7 +43,7 @@ class linked_list:
         self.head=temphead        
 
         return        
-
+        
     def delete_node(self,index):
         temp=self.head
         i=0
