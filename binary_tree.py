@@ -115,10 +115,10 @@ class linked_list:
             print("inequality satisfied")
             if(y<x and troot.nextval_left!= None):
                 print("y<x condition passed")
-                self.deleter(troot.nextval_left,y)
+                troot.nextval_left= self.deleter(troot.nextval_left,y)
             elif(y>x and troot.nextval_right != None):
                 print("y>x condition passed")
-                self.deleter(troot.nextval_right,y)    
+                troot.nextval_right =self.deleter(troot.nextval_right,y)    
                                
         return troot
 if __name__ == "__main__":
