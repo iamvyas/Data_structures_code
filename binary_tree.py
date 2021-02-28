@@ -10,6 +10,7 @@ class linked_list:
         self.root=None
         self.temproot = None
 
+    #new node management
     def passon(self,temp):
         if(temp.dataval<self.temproot.dataval):
                 if(self.temproot.nextval_left==None):
@@ -45,73 +46,81 @@ class linked_list:
                 else:
                     self.temproot=self.root.nextval_right
                     self.passon(temp)        
-            return  
-
-    def delete_node(self,index):
-        el_to_del = self.root
-        if(el_to_del.dataval==index):
-            print("delete the part and join with next highest number")
-            el_to_del.dataval=self.replacer(el_to_del)
-
-        else:
-            if(el_to_del.nextval_right!=None):
-                el_to_del.dataval= self.rec_delete(el_to_del.nextval_right,index)
-            else:
-                el_to_del.dataval= self.rec_delete(el_to_del.nextval_left,index)     
-
-        print("delete success")
-        return
-
-    def rec_delete(self,del_node,index):
-        el_to_del = del_node
-        if(el_to_del.dataval==index):
-            el_to_del=self.replacer(el_to_del)
-
-        else:
-            if(el_to_del.nextval_right!=None):
-                el_to_del.dataval= self.rec_delete(el_to_del.nextval_right,index)
-            else:
-                el_to_del.dataval= self.rec_delete(el_to_del.nextval_left,index)
-
-        return  el_to_del.dataval   
-        
+            return    
+    #new node managment    
 
     def print_root(self):
         print(self.root.dataval)
-        return  
+        return 
 
-    def printer(self):
-        mapper=self.root
-        if(mapper.nextval_left != None ):
-            temp_number=mapper.nextval_left
-            self.printrec(mapper.nextval_left)
-            print(temp_number.dataval)
+    #functions for print    
 
-        if(mapper.nextval_right != None ):
-            temp_number=mapper.nextval_right
-            self.printrec(mapper.nextval_right)
-            print(temp_number.dataval)
-
-        print(mapper.dataval)      
-
-
+    def print_tree(self):
+        self.printer(self.root)
         return
 
-    def printrec(self,pointed_node):
-        nxt_node = pointed_node
-        if(nxt_node.nextval_left != None ):
-            temp_number=nxt_node.nextval_left
-            self.printrec(nxt_node.nextval_left)
-            print(temp_number.dataval)
+    def printer(self,troot):
+        if(troot.dataval==None):
+            return
 
-        if(nxt_node.nextval_right != None ):
-            temp_number=nxt_node.nextval_right
-            self.printrec(nxt_node.nextval_right)
-            print(temp_number.dataval)
+        print(troot.dataval)    
 
+        if(troot.nextval_left != None ):
+            self.printer(troot.nextval_left)
+
+        if(troot.nextval_right != None ):
+            self.printer(troot.nextval_right)      
         return    
   
+    #funtions for delete\
+    def delete_tree(self,number):
+        print("delete tree check")
+        self.deleter(self.root,number)
+        return
 
+    def deleter(self,troot,number):
+        print("deleter entry")
+        x=int(troot.dataval)
+        y=int(number)
+        '''
+        if(x==y):
+            print("equality check")
+            return
+        elif(x!=y):
+            print("inequality check")
+            if(y<x):
+                print("number is lesser than node")
+            elif:
+                print("number greater than node")    
+        '''
+        if(x==y):
+            print("equality satisfied")
+            if(troot.nextval_left!=None):
+                print("left root aint empty")
+                temp=troot.nextval_left
+                troot.dataval=temp.dataval
+                troot.nextval_left = self.deleter(temp,temp.dataval)
+            elif(troot.nextval_right!=None):
+                print("right root aint empty")
+                temp=troot.nextval_right
+                troot.dataval=temp.dataval
+                troot.nextval_right = self.deleter(temp,temp.dataval)
+            else:
+                print("end of the tree reached")
+                print(troot.dataval)
+                troot = None
+                return None
+
+        if(x!=y):
+            print("inequality satisfied")
+            if(y<x and troot.nextval_left!= None):
+                print("y<x condition passed")
+                self.deleter(troot.nextval_left,y)
+            elif(y>x and troot.nextval_right != None):
+                print("y>x condition passed")
+                self.deleter(troot.nextval_right,y)    
+                               
+        return troot
 if __name__ == "__main__":
     linked = linked_list()
     choice=1
@@ -120,11 +129,12 @@ if __name__ == "__main__":
             number = input("enter a number to add:")
             linked.new_node(number)
         if(choice==2):
-            linked.printer()
+            linked.print_tree()
             #print("under construction")
         if(choice==3):
             #linked.delete_node()
-            print("under construction")  
-            linked.print_root()  
+            linked.delete_tree(int(input("enter the number to be deleted:")))
+        if(choice==5):
+            linked.print_root()    
         print("1.add 2.print 3.delete 4.exit")
         choice=int(input("enter a choice:"))  #the int is used because the input takes the vlaue as a character which messes up with if condition            
